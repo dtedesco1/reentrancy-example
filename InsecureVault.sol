@@ -13,10 +13,10 @@ contract InsecureVault {
     }
 
     function withdrawAll() external {
-        uint256 balance = balances[msg.sender]; //getUserBalance(msg.sender);
-        require(balance > 0, "Insufficient balance");
+        uint256 userBalance = balances[msg.sender];
+        require(userBalance > 0, "Insufficient balance");
 
-        (bool success,) = msg.sender.call{value:balance}("");
+        (bool success,) = msg.sender.call{value:userBalance}("");
         require(success, "Failed to send Ether");
 
         balances[msg.sender] = 0;
